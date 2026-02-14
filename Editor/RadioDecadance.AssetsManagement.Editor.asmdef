@@ -1,9 +1,9 @@
 {
     "name": "RadioDecadance.AssetsManagement.Editor",
-    "rootNamespace": "RadioDecadance",
+    "rootNamespace": "RadioDecadance.AssetsManagement.Editor",
     "references": [
-        "GUID:13e06946bbb51a245a8a348cd524c40c",
-        "GUID:69448af7b92c7f342b298e06a37122aa"
+        "RadioDecadance.AssetsManagement",
+        "Unity.Addressables.Editor"
     ],
     "includePlatforms": [
         "Editor"

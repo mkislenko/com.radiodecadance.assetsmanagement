@@ -19,9 +19,13 @@ namespace RadioDecadance.AssetsManagement
     /// </summary>
     public class StartupPrefabsSettings : ScriptableObject
     {
-        private const string FolderPath = "Assets/Resources/RadioDecadance";
-        private const string FileNamePath = "StartupPrefabsSettings.asset";
-        private const string FullPath = FolderPath + "/" + FileNamePath;
+        private const string ResourcesFolderPath = "Assets/Resources";
+        private const string FolderPath = "RadioDecadance";
+        private const string FileName = "StartupPrefabsSettings";
+        private const string FileExtension = ".asset";
+        private const string FullFileName = FileName + FileExtension;
+        private const string FullAssetPath = ResourcesFolderPath + "/" + FolderPath + "/" + FullFileName;
+        private const string ResourcesPath = FolderPath + "/" + FileName;
 
         [SerializeField]
         private List<BootstrapAssetEntry> prefabsToHandle = new List<BootstrapAssetEntry>();
@@ -34,7 +38,7 @@ namespace RadioDecadance.AssetsManagement
         {
 #if UNITY_EDITOR
             
-            var settings = UnityEditor.AssetDatabase.LoadAssetAtPath<StartupPrefabsSettings>(FullPath);
+            var settings = UnityEditor.AssetDatabase.LoadAssetAtPath<StartupPrefabsSettings>(FullAssetPath);
             if (settings == null)
             {
                 settings = ScriptableObject.CreateInstance<StartupPrefabsSettings>();
@@ -43,13 +47,20 @@ namespace RadioDecadance.AssetsManagement
                 {
                     Directory.CreateDirectory(FolderPath);
                 }
-                UnityEditor.AssetDatabase.CreateAsset(settings, FullPath);
+                UnityEditor.AssetDatabase.CreateAsset(settings, FullAssetPath);
                 UnityEditor.AssetDatabase.SaveAssets();
             }
         
             return settings;
 #else
-            return Resources.Load<PrefabsBootstrapSettings>("PrefabsBootstrapSettings");
+            var settings = Resources.Load<StartupPrefabsSettings>(ResourcesPath);
+
+            if (settings == null)
+            {
+                Debug.LogError($"PrefabsBootstrapSettings not found on path: {ResourcesPath}]");
+            }
+            
+            return settings;
 #endif
         }
     }

@@ -16,7 +16,7 @@ namespace RadioDecadance.AssetsManagement
 
             if (settings == null)
             {
-                Debug.LogWarning("PrefabsBootstrapSettings not found. Skipping preloading.");
+                Debug.LogError("PrefabsBootstrapSettings not found. Skipping preloading.");
                 return;
             }
 
